@@ -1,0 +1,4 @@
+cmd/api/app/main.go
+cmd/api/app/infrastructure/container/.*
+cmd/api/app/domain/exception/.*
+migration/*
