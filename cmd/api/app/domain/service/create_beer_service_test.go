@@ -31,7 +31,7 @@ var _ = Describe("Service", func() {
 		When("a new valid beer request is received", func() {
 			It("should return nil error", func() {
 
-				beer := builder.NewBikeDataBuilder().Build()
+				beer := builder.NewBeerDataBuilder().Build()
 				repositoryMock.On("Save", beer).Return(nil)
 
 				err := beerCreateService.CreateBeer(beer)
@@ -44,7 +44,7 @@ var _ = Describe("Service", func() {
 			It("should return error", func() {
 
 				errorMock := errors.New("the id:1 is invalid")
-				beer := builder.NewBikeDataBuilder().Build()
+				beer := builder.NewBeerDataBuilder().Build()
 				repositoryMock.On("Save", beer).Return(errorMock)
 				errorExpected := "Message: Beer id:1 already exists;Error Code: Conflict;Status: 409;Cause: []"
 

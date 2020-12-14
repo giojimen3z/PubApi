@@ -4,7 +4,8 @@ import (
 	"database/sql"
 
 	"github.com/PubApi/cmd/api/app/domain/port"
-	"github.com/PubApi/cmd/api/app/infrastructure/adapter"
+	"github.com/PubApi/cmd/api/app/infrastructure/adapter/client"
+	"github.com/PubApi/cmd/api/app/infrastructure/adapter/repository"
 	"github.com/PubApi/cmd/api/app/infrastructure/config"
 	"github.com/PubApi/cmd/api/app/infrastructure/controller/beer"
 )
@@ -13,11 +14,25 @@ func GetCreateBeerController() *beer.CreateBeerController {
 	return &beer.CreateBeerController{CreateBeerApplication: getCreateBeerApplication()}
 }
 
+func GetListBeerController() *beer.ListBeerController {
+	return &beer.ListBeerController{ListBeerApplication: getListBeerApplication()}
+}
+func GetBeerController() *beer.GetBeerController {
+	return &beer.GetBeerController{GetBeerApplication: getBeerApplication()}
+}
+func GetBeerBoxPriceController() *beer.GetBeerBoxPriceController {
+	return &beer.GetBeerBoxPriceController{GetBeerBoxPriceApplication: getBeerBoxPriceApplication()}
+}
+
 func getCreateBeerRepository() port.BeerRepository {
-	return &adapter.BeerMysqlRepository{
-		WriteClient: getWriteConnectionClient(),
-		ReadClient:  getReadConnectionClient(),
+	return &repository.BeerMysqlRepository{
+		WriteClient:          getWriteConnectionClient(),
+		ReadConnectionClient: getReadConnectionClient(),
 	}
+}
+
+func getConvertCurrencyClient() port.CurrencyClient {
+	return &client.CurrencyConvertClient{}
 }
 func getWriteConnectionClient() *sql.DB {
 	conn, _ := config.GetWriteConnection()

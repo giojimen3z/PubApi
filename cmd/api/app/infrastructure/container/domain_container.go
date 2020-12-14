@@ -8,3 +8,23 @@ func getCreateBeerService() service.CreateBeerService {
 	}
 }
 
+func getListBeerService() service.ListBeerService {
+	return &service.ListBeer{
+		BeerRepository: getCreateBeerRepository(),
+	}
+}
+
+func getBeerService() service.GetBeerService {
+	return &service.GetBeer{
+		BeerRepository: getCreateBeerRepository(),
+	}
+}
+func getConvertCurrencyService() service.ConvertCurrencyService {
+	return &service.ConvertCurrency{
+		ConvertCurrencyClient: getConvertCurrencyClient(),
+	}
+}
+
+func getBeerBoxPriceService() service.GetBeerBoxPriceService {
+	return &service.GetBeerBoxPrice{}
+}

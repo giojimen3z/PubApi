@@ -18,3 +18,8 @@ func (mock *BeerRepositoryMock) ListBeer() ([]model.Beer, error) {
 	args := mock.Called()
 	return args.Get(0).([]model.Beer), args.Error(1)
 }
+
+func (mock *BeerRepositoryMock) GetBeerByID(id int64) (beer model.Beer, err error) {
+	args := mock.Called(id)
+	return args.Get(0).(model.Beer), args.Error(1)
+}

@@ -30,7 +30,7 @@ var _ = Describe("Beer Controller", func() {
 		)
 		BeforeEach(func() {
 			_ = os.Setenv("SCOPE", "local")
-			beer = builder.NewBikeDataBuilder().Build()
+			beer = builder.NewBeerDataBuilder().Build()
 			recorder = httptest.NewRecorder()
 			context, _ = gin.CreateTestContext(recorder)
 			repositoryMock = new(mock.BeerRepositoryMock)
@@ -54,7 +54,7 @@ var _ = Describe("Beer Controller", func() {
 				body, _ := json.Marshal(beer)
 				context.Request, _ = http.NewRequest("POST", "/testing", strings.NewReader(string(body)))
 				repositoryMock.On("Save", beer).Return(nil)
-				expectMessage := "\"the bear Golden was created successfully\""
+				expectMessage := "\"the beer Golden was created successfully\""
 
 				beerCreateController.MakeCreateBeer(context)
 

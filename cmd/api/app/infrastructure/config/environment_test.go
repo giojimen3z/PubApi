@@ -53,6 +53,15 @@ var _ = Describe("Environments", func() {
 				Expect(false).Should(Equal(got))
 			})
 		})
+		When("try get currency apikey ", func() {
+			It("should apikey", func() {
+
+				apikeyExpected := "6392|h_2OeBxS2ibfZ^D1cA1o_3cYBQNUD*Pm"
+				got := GetCurrencyApiKey()
+
+				Expect(apikeyExpected).Should(Equal(got))
+			})
+		})
 	})
 
 })

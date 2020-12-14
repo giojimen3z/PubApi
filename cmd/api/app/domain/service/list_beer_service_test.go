@@ -32,7 +32,7 @@ var _ = Describe("Service", func() {
 		When("a new valid request is received", func() {
 			It("should return beer list and nil error", func() {
 
-				beerList := []model.Beer{builder.NewBikeDataBuilder().Build()}
+				beerList := []model.Beer{builder.NewBeerDataBuilder().Build()}
 				repositoryMock.On("ListBeer").Return(beerList, nil)
 
 				beers, err := listBeerService.ListBeer()

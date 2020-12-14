@@ -2,7 +2,6 @@ package application_test
 
 import (
 	"errors"
-	"os"
 
 	"github.com/PubApi/cmd/api/app/application"
 	"github.com/PubApi/cmd/api/app/domain/service"
@@ -29,13 +28,10 @@ var _ = Describe("Handler", func() {
 
 		})
 
-		AfterEach(func() {
-			os.Clearenv()
-		})
 		When("a new valid beer request is received", func() {
 			It("should return nil error", func() {
 
-				beer := builder.NewBikeDataBuilder().Build()
+				beer := builder.NewBeerDataBuilder().Build()
 				repositoryMock.On("Save", beer).Return(nil)
 
 				err := beerCreateUseCase.Handler(beer)
@@ -48,12 +44,11 @@ var _ = Describe("Handler", func() {
 			It("should return error", func() {
 
 				errorMock := errors.New("Error 1062: Duplicate entry '1' for key 'beer.PRIMARY'")
-				beer := builder.NewBikeDataBuilder().Build()
+				beer := builder.NewBeerDataBuilder().Build()
 				repositoryMock.On("Save", beer).Return(errorMock)
 				errorExpected := "Message: Beer id:1 already exists;Error Code: Conflict;Status: 409;Cause: []"
 
 				err := beerCreateUseCase.Handler(beer)
-
 
 				Expect(err).Should(Not(BeNil()))
 				Expect(errorExpected).Should(Equal(err.Error()))

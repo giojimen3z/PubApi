@@ -2,7 +2,6 @@ package application_test
 
 import (
 	"errors"
-	"os"
 
 	"github.com/PubApi/cmd/api/app/application"
 	"github.com/PubApi/cmd/api/app/domain/model"
@@ -30,16 +29,13 @@ var _ = Describe("Handler", func() {
 
 		})
 
-		AfterEach(func() {
-			os.Clearenv()
-		})
 		When("a new valid  request is received", func() {
 			It("should return beer list and nil error", func() {
 
-				beerList := []model.Beer{builder.NewBikeDataBuilder().Build()}
+				beerList := []model.Beer{builder.NewBeerDataBuilder().Build()}
 				repositoryMock.On("ListBeer").Return(beerList, nil)
 
-				beers,err := listBeerUseCase.Handler()
+				beers, err := listBeerUseCase.Handler()
 
 				Expect(err).Should(BeNil())
 				Expect(beerList).Should(Equal(beers))
@@ -54,7 +50,7 @@ var _ = Describe("Handler", func() {
 				errorExpected := "Message: Error getting the beers from repository;Error Code: bad_request;Status: 400;Cause: []"
 				repositoryMock.On("ListBeer").Return(beerList, errorRepository)
 
-				beers,err := listBeerUseCase.Handler()
+				beers, err := listBeerUseCase.Handler()
 
 				Expect(err).Should(Not(BeNil()))
 				Expect(beerList).Should(Equal(beers))

@@ -16,6 +16,7 @@ const (
 	dbTestName       = "BeersTst"
 	readDBAdminUser  = ""
 	dbAdminPwd       = ""
+	currencyApiKey   = "6392|h_2OeBxS2ibfZ^D1cA1o_3cYBQNUD*Pm"
 	readDBTestUser   = "root"
 	readDBTestPwd    = "root"
 	writeDBAdminUser = ""
@@ -61,4 +62,8 @@ func GetRoutePrefix() string {
 	}
 
 	return ""
+}
+
+func GetCurrencyApiKey() string {
+	return currencyApiKey
 }

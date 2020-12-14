@@ -13,7 +13,7 @@ import (
 
 var (
 	invalidBodyErr = apierrors.NewBadRequestApiError("invalid request")
-	successMassage = "the bear %s was created successfully"
+	successMassage = "the beer %s was created successfully"
 )
 
 // CreateBeerController  used for inject the use case

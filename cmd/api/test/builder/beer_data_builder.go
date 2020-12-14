@@ -11,7 +11,7 @@ type BeerDataBuilder struct {
 	currency string
 }
 
-func NewBikeDataBuilder() *BeerDataBuilder {
+func NewBeerDataBuilder() *BeerDataBuilder {
 	return &BeerDataBuilder{
 		beerId:   1,
 		name:     "Golden",
@@ -22,6 +22,16 @@ func NewBikeDataBuilder() *BeerDataBuilder {
 	}
 }
 
+func NewBeerDataBuilderWithZeroID() *BeerDataBuilder {
+	return &BeerDataBuilder{
+		beerId:   0,
+		name:     "",
+		brewery:  "",
+		country:  "",
+		price:    0,
+		currency: "",
+	}
+}
 func (builder *BeerDataBuilder) Build() model.Beer {
 	return model.Beer{
 		BeerId:   builder.beerId,

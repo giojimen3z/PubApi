@@ -1,16 +1,16 @@
 openapi: 3.0.0
 servers: [ ]
 info:
-  description: 'Esta API esta diseñada para ser una prueba para los nuevos candidatos al equipo.'
+  description: 'Esta API esta diseñada para ser una prueba de conocimiento y un template para futuros proyectos'
   version: "1.0.0"
   title: 'PubApi'
   contact:
-    email: 'lugaetea@falabella.cl'
+    email: 'gioud@outlook.com'
 tags:
   - name: cerveza
     description: rica cerveza..
 paths:
-  /PubApi/beers:
+  /PubApi/Beers:
     get:
       tags:
         - cerveza
@@ -27,7 +27,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/BeerItem'
-  /PubApi/beer:
+        '400':
+          description: 'Error al obtener las cervezas del repositorio'
+        '500':
+          description: 'Error con la información recibida, las cervezas están vacías'
+  /PubApi/Beer:
     post:
       tags:
         - cerveza
@@ -48,7 +52,7 @@ paths:
               $ref: '#/components/schemas/BeerItem'
         description: 'Ingresa una nueva cerveza'
 
-  /PubApi/beer/{beerID}:
+  /PubApi/Beer/{beerID}:
     get:
       tags:
         - cerveza
@@ -66,14 +70,14 @@ paths:
       responses:
         '200':
           description: 'Operacion exitosa'
-        '404':
-          description: 'El Id de la cerveza no existe'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeerItem'
+        '404':
+          description: 'El Id de la cerveza no existe'
 
-  /PubApi/beer/{beerID}/boxprice:
+  /PubApi/Beer/{beerID}/BoxPrice:
     get:
       tags:
         - cerveza
@@ -102,12 +106,14 @@ paths:
       responses:
         '200':
           description: 'Operacion exitosa'
-        '404':
-          description: 'El Id de la cerveza no existe'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BeerBox'
+        '404':
+          description: 'El Id de la cerveza no existe'
+        '500':
+          description: 'error convirtiendo a la moneda seleccionada'
 components:
   schemas:
     BeerItem:
@@ -143,4 +149,5 @@ components:
       properties:
         Price Total:
           type: number
+          example: 10.5
       

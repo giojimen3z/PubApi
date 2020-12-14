@@ -30,7 +30,7 @@ var _ = Describe("Beer Controller", func() {
 		)
 		BeforeEach(func() {
 			_ = os.Setenv("SCOPE", "local")
-			beer = builder.NewBikeDataBuilder().Build()
+			beer = builder.NewBeerDataBuilder().Build()
 			recorder = httptest.NewRecorder()
 			context, _ = gin.CreateTestContext(recorder)
 			repositoryMock = new(mock.BeerRepositoryMock)
@@ -57,29 +57,13 @@ var _ = Describe("Beer Controller", func() {
 				context.Request, _ = http.NewRequest("GET", "/testing", strings.NewReader(string("")))
 				repositoryMock.On("ListBeer").Return(beerList, nil)
 
-				listBeerController.MakeBeerList(context)
+				listBeerController.MakeListBeer(context)
 
 				Expect(http.StatusOK).To(Equal(recorder.Code))
 				Expect(string(bodyExpected)).Should(Equal(recorder.Body.String()))
 				repositoryMock.AssertExpectations(GinkgoT())
 			})
 		})
-		When("a new valid request is received", func() {
-			It("should return 500 code", func() {
-
-				beerList := []model.Beer{}
-				errorExpected := "{\"message\":\"Error with the  information received, the Beers are empty\",\"error\":\"internal_server_error\",\"status\":500,\"cause\":[\"Error with the  information received, the Beers are empty\"]}[]"
-				context.Request, _ = http.NewRequest("GET", "/testing", strings.NewReader(string("")))
-				repositoryMock.On("ListBeer").Return(beerList, nil)
-
-				listBeerController.MakeBeerList(context)
-
-				Expect(http.StatusInternalServerError).To(Equal(recorder.Code))
-				Expect(string(errorExpected)).Should(Equal(recorder.Body.String()))
-				repositoryMock.AssertExpectations(GinkgoT())
-			})
-		})
-
 		When("a new valid request is received", func() {
 			It("should return 400 code", func() {
 
@@ -89,10 +73,10 @@ var _ = Describe("Beer Controller", func() {
 				context.Request, _ = http.NewRequest("GET", "/testing", strings.NewReader(string("")))
 				repositoryMock.On("ListBeer").Return(beerList, errorRepository)
 
-				listBeerController.MakeBeerList(context)
+				listBeerController.MakeListBeer(context)
 
 				Expect(http.StatusBadRequest).To(Equal(recorder.Code))
-				Expect(string(errorExpected)).Should(Equal(recorder.Body.String()))
+				Expect(errorExpected).Should(Equal(recorder.Body.String()))
 				repositoryMock.AssertExpectations(GinkgoT())
 			})
 		})
@@ -105,10 +89,10 @@ var _ = Describe("Beer Controller", func() {
 				context.Request, _ = http.NewRequest("GET", "/testing", strings.NewReader(string("")))
 				repositoryMock.On("ListBeer").Return(beerList, nil)
 
-				listBeerController.MakeBeerList(context)
+				listBeerController.MakeListBeer(context)
 
 				Expect(http.StatusInternalServerError).To(Equal(recorder.Code))
-				Expect(string(errorExpected)).Should(Equal(recorder.Body.String()))
+				Expect(errorExpected).Should(Equal(recorder.Body.String()))
 				repositoryMock.AssertExpectations(GinkgoT())
 			})
 		})
