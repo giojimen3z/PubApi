@@ -5,8 +5,9 @@ go 1.15
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/gin-gonic/gin v1.6.3
-	github.com/go-resty/resty/v2 v2.3.0
+	github.com/go-resty/resty/v2 v2.5.0
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/jarcoal/httpmock v1.0.8
 	github.com/json-iterator/go v1.1.10
 	github.com/newrelic/go-agent v3.9.0+incompatible
 	github.com/onsi/ginkgo v1.14.2
