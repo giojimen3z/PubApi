@@ -15,13 +15,20 @@ const (
 	putMethod                     = "Put"
 )
 
+var (
+	client = resty.New()
+)
+
 type CustomRestClient struct {
 	RequestBuilder resty.Client
 }
 
 func (customRestClient *CustomRestClient) Get(url string, apiName string, typeOfDataToMap interface{}) error {
 
+
+
 	response, err := customRestClient.RequestBuilder.R().EnableTrace().Get(url)
+
 
 	if err != nil {
 		logger.Errorf(fmt.Sprintf(logErrorCommunicationAPI, apiName, err, getMethod), err)
@@ -43,7 +50,7 @@ func (customRestClient *CustomRestClient) Post(url string, body interface{}, typ
 
 	logger.Infof("RestClient - Post , apiName= %s - body -> %+v , url =%s", apiName, body, url)
 
-	response, err := customRestClient.RequestBuilder.R().SetBody(body).Post(url)
+	response, err := client.R().SetBody(body).Post(url)
 
 	if err != nil {
 
@@ -69,7 +76,7 @@ func (customRestClient *CustomRestClient) Put(url string, body interface{}, apiN
 
 	logger.Infof("RestClient - PUT - body -> %+v", body)
 
-	response, err := customRestClient.RequestBuilder.R().SetBody(body).Put(url)
+	response, err := client.R().SetBody(body).Put(url)
 
 	if err != nil {
 
@@ -80,11 +87,4 @@ func (customRestClient *CustomRestClient) Put(url string, body interface{}, apiN
 	logger.Infof("RestClient - PUT - responseStatus -> %d", response.Status())
 
 	return err
-}
-func NewRestClientAPI(url  string) resty.Client {
-	return resty.Client{
-		HostURL:                url,
-		Debug:                  false,
-		DisableWarn:            false,
-	}
 }

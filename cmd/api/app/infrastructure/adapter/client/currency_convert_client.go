@@ -16,7 +16,7 @@ const (
 )
 
 type CurrencyConvertClient struct {
-	RestClient *config.CustomRestClient
+	RestClient config.CustomRestClient
 }
 
 func (currencyConvertClient *CurrencyConvertClient) GetCurrency(currency model.Currency) (model.CurrencyConversion, error) {

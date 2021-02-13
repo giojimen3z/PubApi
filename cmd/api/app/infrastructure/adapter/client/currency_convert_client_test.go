@@ -2,6 +2,7 @@ package client_test
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 
 	"github.com/PubApi/cmd/api/test/builder"
@@ -19,10 +20,11 @@ var _ = Describe("Client", func() {
 		var (
 
 			fakeUrl               = "https://api.cambio.today/v1/quotes/COP/USD/json?quantity=1500&key=6392|h_2OeBxS2ibfZ^D1cA1o_3cYBQNUD*Pm"
+			client = resty.New()
 		)
 
 		var _ = BeforeSuite(func() {
-			client := resty.New()
+
 			httpmock.ActivateNonDefault(client.GetClient())
 		})
 
@@ -51,8 +53,7 @@ var _ = Describe("Client", func() {
 				responder := httpmock.NewStringResponder(200, string(fixture))
 				httpmock.RegisterResponder("GET", fakeUrl, responder)
 				client.R().SetResult(currencyConversionExpected).Get(fakeUrl)
-
-
+				 println("==============================>>>>", fmt.Sprintf("%v", client))
 
 				//Expect(err).Should(BeNil())
 
