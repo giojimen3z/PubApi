@@ -49,6 +49,5 @@ func getReadConnectionClient() *sql.DB {
 func getRestConnectionClient() config.CustomRestClient {
 
 	return config.CustomRestClient{
-		RequestBuilder: *config.GetRestyClient(),
 	}
 }
