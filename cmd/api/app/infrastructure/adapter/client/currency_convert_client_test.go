@@ -72,7 +72,7 @@ var _ = Describe("Client", func() {
 				currency := model.Currency{}
 				currencyConversionExpected := model.CurrencyConversion{}
 				errorExpected := errors.New("the body of the petition is incorrect, check and try again")
-				responder := httpmock.NewStringResponder(404, errorExpected.Error())
+				responder := httpmock.NewErrorResponder( errorExpected)
 				httpmock.RegisterResponder("GET", fakeUrl, responder)
 				restyClient.R().SetError(errorExpected).SetResult(currencyConversionExpected).Get(fakeUrl)
 
