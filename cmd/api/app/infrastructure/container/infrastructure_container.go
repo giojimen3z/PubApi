@@ -32,7 +32,9 @@ func getCreateBeerRepository() port.BeerRepository {
 }
 
 func getConvertCurrencyClient() port.CurrencyClient {
-	return &client.CurrencyConvertClient{}
+	return &client.CurrencyConvertClient{
+		RestClient: getRestConnectionClient(),
+	}
 }
 func getWriteConnectionClient() *sql.DB {
 	conn, _ := config.GetWriteConnection()
@@ -42,4 +44,10 @@ func getWriteConnectionClient() *sql.DB {
 func getReadConnectionClient() *sql.DB {
 	conn, _ := config.GetReadConnection()
 	return conn
+}
+
+func getRestConnectionClient() config.CustomRestClient {
+
+	return config.CustomRestClient{
+	}
 }

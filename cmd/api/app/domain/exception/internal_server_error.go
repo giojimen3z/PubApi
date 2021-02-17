@@ -12,7 +12,3 @@ type InternalServerError struct {
 func (internalServerError InternalServerError) Error() string {
 	return internalServerError.ErrMessage
 }
-
-func (internalServerError InternalServerError) InternalServerErrorPort() bool {
-	return true
-}
