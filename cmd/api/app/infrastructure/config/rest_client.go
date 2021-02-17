@@ -19,7 +19,9 @@ type CustomRestClient struct {
 }
 
 func (customRestClient *CustomRestClient) Get(url string, apiName string, typeOfDataToMap interface{}) error {
+
 	client := resty.New()
+
 	response, err := client.R().EnableTrace().Get(url)
 
 	if err != nil {
@@ -56,7 +58,6 @@ func (customRestClient *CustomRestClient) Post(url string, body interface{}, typ
 		logger.Errorf(fmt.Sprintf(logErrorUnmarshallInformation, postMethod), err)
 		return err
 	}
-
 
 	return err
 }
