@@ -27,7 +27,7 @@ var _ = Describe("Service", func() {
 			os.Clearenv()
 		})
 		When("a new valid request is received", func() {
-			It("should return beer box price", func() {
+			It("should return beer box price default", func() {
 
 				beerBoxExpected := builder.NewBeerBoxDataBuilder().WithPrice(2.4966).Build()
 				currencyConversion := builder.NewCurrencyConversionDataBuilder().Build()
@@ -37,6 +37,18 @@ var _ = Describe("Service", func() {
 				Expect(beerBoxExpected).Should(Equal(beerBox))
 			})
 		})
+		When("a new valid request is received", func() {
+			It("should return beer box price", func() {
 
+				quantity := 3
+				beerBoxExpected := builder.NewBeerBoxDataBuilder().WithPrice(7.489800000000001).Build()
+				currencyConversion := builder.NewCurrencyConversionDataBuilder().Build()
+
+				beerBox := getBeerBoxPriceService.GetBeerBoxPrice(int64(quantity), currencyConversion)
+
+				println("===============================>>>>>", beerBox.Price)
+				Expect(beerBoxExpected).Should(Equal(beerBox))
+			})
+		})
 	})
 })

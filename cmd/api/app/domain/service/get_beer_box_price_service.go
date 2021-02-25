@@ -18,15 +18,23 @@ type GetBeerBoxPrice struct{}
 
 func (getBeerBoxPrice *GetBeerBoxPrice) GetBeerBoxPrice(quantity int64, currencyConversion model.CurrencyConversion) model.BeerBox {
 
-	if quantity == Zero {
-		quantity = defaultQuantity
-	}
+	boxQuantity := getBeerBoxPrice.getQuantityBox(quantity)
 
-	price := float64(quantity) * currencyConversion.Currency.Amount
+	price := float64(boxQuantity) * currencyConversion.Currency.Amount
 
 	beerBox := model.BeerBox{
 		Price: price,
 	}
 
 	return beerBox
+}
+
+func (getBeerBoxPrice *GetBeerBoxPrice) getQuantityBox(quantity int64) int64 {
+	if quantity == Zero {
+		quantity = defaultQuantity
+	} else {
+
+		quantity = quantity * 6
+	}
+	return quantity
 }
