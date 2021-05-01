@@ -1,11 +1,11 @@
-package application
+package beer
 
 import (
 	"fmt"
 	"strings"
 
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	"github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/pkg/apierrors"
 	"github.com/PubApi/pkg/logger"
 )
@@ -22,9 +22,9 @@ type GetBeerBoxPriceApplication interface {
 }
 
 type GetBeerBoxPrice struct {
-	GetBeerService         service.GetBeerService
-	ConvertCurrencyService service.ConvertCurrencyService
-	GetBeerBoxPriceService service.GetBeerBoxPriceService
+	GetBeerService         beer.GetBeerService
+	ConvertCurrencyService beer.ConvertCurrencyService
+	GetBeerBoxPriceService beer.GetBeerBoxPriceService
 }
 
 func (getBeerBoxPrice *GetBeerBoxPrice) Handler(id int64, currency string, quantity int64) (model.BeerBox, apierrors.ApiError) {

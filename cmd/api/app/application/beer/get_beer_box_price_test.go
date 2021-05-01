@@ -1,11 +1,11 @@
-package application_test
+package beer_test
 
 import (
 	"errors"
 
-	"github.com/PubApi/cmd/api/app/application"
+	"github.com/PubApi/cmd/api/app/application/beer"
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	beer2 "github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	. "github.com/onsi/ginkgo"
@@ -23,19 +23,19 @@ var _ = Describe("Handler", func() {
 		var (
 			repositoryMock         *mock.BeerRepositoryMock
 			clientMock             *mock.CurrencyClientMock
-			getBeerBoxPriceUseCase application.GetBeerBoxPrice
+			getBeerBoxPriceUseCase beer.GetBeerBoxPrice
 		)
 		BeforeEach(func() {
 			repositoryMock = new(mock.BeerRepositoryMock)
 			clientMock = new(mock.CurrencyClientMock)
-			getBeerService := &service.GetBeer{
+			getBeerService := &beer2.GetBeer{
 				BeerRepository: repositoryMock,
 			}
-			convertCurrencyService := &service.ConvertCurrency{
+			convertCurrencyService := &beer2.ConvertCurrency{
 				ConvertCurrencyClient: clientMock,
 			}
-			getBeerBoxPrice := &service.GetBeerBoxPrice{}
-			getBeerBoxPriceUseCase = application.GetBeerBoxPrice{
+			getBeerBoxPrice := &beer2.GetBeerBoxPrice{}
+			getBeerBoxPriceUseCase = beer.GetBeerBoxPrice{
 				GetBeerService:         getBeerService,
 				ConvertCurrencyService: convertCurrencyService,
 				GetBeerBoxPriceService: getBeerBoxPrice,

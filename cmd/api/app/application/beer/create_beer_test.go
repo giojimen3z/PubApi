@@ -1,54 +1,54 @@
-package service_test
+package beer_test
 
 import (
 	"errors"
-	"os"
 
-	"github.com/PubApi/cmd/api/app/domain/service"
+	"github.com/PubApi/cmd/api/app/application/beer"
+	beer2 "github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Service", func() {
+var _ = Describe("Handler", func() {
 	Context("Create Beer", func() {
 		var (
 			repositoryMock    *mock.BeerRepositoryMock
-			beerCreateService service.CreateBeer
+			beerCreateUseCase beer.CreateBeer
 		)
 		BeforeEach(func() {
 			repositoryMock = new(mock.BeerRepositoryMock)
-			beerCreateService = service.CreateBeer{
+			beerCreateService := &beer2.CreateBeer{
 				BeerRepository: repositoryMock,
+			}
+			beerCreateUseCase = beer.CreateBeer{
+				CreateBeerService: beerCreateService,
 			}
 
 		})
 
-		AfterEach(func() {
-			os.Clearenv()
-		})
 		When("a new valid beer request is received", func() {
 			It("should return nil error", func() {
 
 				beer := builder.NewBeerDataBuilder().Build()
 				repositoryMock.On("Save", beer).Return(nil)
 
-				err := beerCreateService.CreateBeer(beer)
+				err := beerCreateUseCase.Handler(beer)
 
 				Expect(err).Should(BeNil())
 				repositoryMock.AssertExpectations(GinkgoT())
 			})
 		})
-		When("a new valid beer request is received with a invalid id", func() {
+		When("a new invalid beer request is received", func() {
 			It("should return error", func() {
 
-				errorMock := errors.New("the id:1 is invalid")
+				errorMock := errors.New("Error 1062: Duplicate entry '1' for key 'beer.PRIMARY'")
 				beer := builder.NewBeerDataBuilder().Build()
 				repositoryMock.On("Save", beer).Return(errorMock)
 				errorExpected := "Message: Beer id:1 already exists;Error Code: Conflict;Status: 409;Cause: []"
 
-				err := beerCreateService.CreateBeer(beer)
+				err := beerCreateUseCase.Handler(beer)
 
 				Expect(err).Should(Not(BeNil()))
 				Expect(errorExpected).Should(Equal(err.Error()))

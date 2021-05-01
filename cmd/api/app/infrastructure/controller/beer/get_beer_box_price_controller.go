@@ -5,13 +5,13 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/PubApi/cmd/api/app/application"
+	"github.com/PubApi/cmd/api/app/application/beer"
 	"github.com/gin-gonic/gin"
 )
 
 // GetBeerBoxPriceController  used for inject the use case
 type GetBeerBoxPriceController struct {
-	GetBeerBoxPriceApplication application.GetBeerBoxPriceApplication
+	GetBeerBoxPriceApplication beer.GetBeerBoxPriceApplication
 }
 
 func (getBeerBoxPriceController *GetBeerBoxPriceController) MakeGetBeerBoxPrice(context *gin.Context) {

@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/PubApi/cmd/api/app/application"
+	beer2 "github.com/PubApi/cmd/api/app/application/beer"
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	beer3 "github.com/PubApi/cmd/api/app/domain/service/beer"
 	beerController "github.com/PubApi/cmd/api/app/infrastructure/controller/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
@@ -34,10 +34,10 @@ var _ = Describe("Beer Controller", func() {
 			recorder = httptest.NewRecorder()
 			context, _ = gin.CreateTestContext(recorder)
 			repositoryMock = new(mock.BeerRepositoryMock)
-			listBeerService := &service.ListBeer{
+			listBeerService := &beer3.ListBeer{
 				BeerRepository: repositoryMock,
 			}
-			listBeerUseCase := &application.ListBeer{
+			listBeerUseCase := &beer2.ListBeer{
 				ListBeerService: listBeerService,
 			}
 			listBeerController = beerController.ListBeerController{

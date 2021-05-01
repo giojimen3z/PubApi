@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/PubApi/cmd/api/app/application"
+	"github.com/PubApi/cmd/api/app/application/beer"
 	"github.com/PubApi/cmd/api/app/domain/model"
 	"github.com/PubApi/pkg/apierrors"
 	"github.com/PubApi/pkg/logger"
@@ -18,7 +18,7 @@ var (
 
 // CreateBeerController  used for inject the use case
 type CreateBeerController struct {
-	CreateBeerApplication application.CreateBeerApplication
+	CreateBeerApplication beer.CreateBeerApplication
 }
 
 func (createBeerController *CreateBeerController) MakeCreateBeer(context *gin.Context) {

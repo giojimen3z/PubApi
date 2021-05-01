@@ -1,11 +1,11 @@
-package service_test
+package beer_test
 
 import (
 	"errors"
 	"os"
 
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	"github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	. "github.com/onsi/ginkgo"
@@ -22,11 +22,11 @@ var _ = Describe("Service", func() {
 	Context("Get Beer", func() {
 		var (
 			repositoryMock *mock.BeerRepositoryMock
-			getBeerService service.GetBeer
+			getBeerService beer.GetBeer
 		)
 		BeforeEach(func() {
 			repositoryMock = new(mock.BeerRepositoryMock)
-			getBeerService = service.GetBeer{
+			getBeerService = beer.GetBeer{
 				BeerRepository: repositoryMock,
 			}
 

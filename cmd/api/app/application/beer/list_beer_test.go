@@ -1,11 +1,11 @@
-package application_test
+package beer_test
 
 import (
 	"errors"
 
-	"github.com/PubApi/cmd/api/app/application"
+	"github.com/PubApi/cmd/api/app/application/beer"
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	beer2 "github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	. "github.com/onsi/ginkgo"
@@ -16,14 +16,14 @@ var _ = Describe("Handler", func() {
 	Context("List Beer", func() {
 		var (
 			repositoryMock  *mock.BeerRepositoryMock
-			listBeerUseCase application.ListBeer
+			listBeerUseCase beer.ListBeer
 		)
 		BeforeEach(func() {
 			repositoryMock = new(mock.BeerRepositoryMock)
-			listBeerService := &service.ListBeer{
+			listBeerService := &beer2.ListBeer{
 				BeerRepository: repositoryMock,
 			}
-			listBeerUseCase = application.ListBeer{
+			listBeerUseCase = beer.ListBeer{
 				ListBeerService: listBeerService,
 			}
 

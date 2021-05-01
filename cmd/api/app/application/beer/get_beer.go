@@ -1,8 +1,8 @@
-package application
+package beer
 
 import (
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	"github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/pkg/apierrors"
 )
 
@@ -12,7 +12,7 @@ type GetBeerApplication interface {
 	Handler(id int64) (model.Beer, apierrors.ApiError)
 }
 type GetBeer struct {
-	GetBeerService service.GetBeerService
+	GetBeerService beer.GetBeerService
 }
 
 func (getBeer *GetBeer) Handler(id int64) (model.Beer, apierrors.ApiError) {

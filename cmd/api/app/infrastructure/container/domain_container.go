@@ -1,30 +1,32 @@
 package container
 
-import "github.com/PubApi/cmd/api/app/domain/service"
+import (
+	"github.com/PubApi/cmd/api/app/domain/service/beer"
+)
 
-func getCreateBeerService() service.CreateBeerService {
-	return &service.CreateBeer{
+func getCreateBeerService() beer.CreateBeerService {
+	return &beer.CreateBeer{
 		BeerRepository: getCreateBeerRepository(),
 	}
 }
 
-func getListBeerService() service.ListBeerService {
-	return &service.ListBeer{
+func getListBeerService() beer.ListBeerService {
+	return &beer.ListBeer{
 		BeerRepository: getCreateBeerRepository(),
 	}
 }
 
-func getBeerService() service.GetBeerService {
-	return &service.GetBeer{
+func getBeerService() beer.GetBeerService {
+	return &beer.GetBeer{
 		BeerRepository: getCreateBeerRepository(),
 	}
 }
-func getConvertCurrencyService() service.ConvertCurrencyService {
-	return &service.ConvertCurrency{
+func getConvertCurrencyService() beer.ConvertCurrencyService {
+	return &beer.ConvertCurrency{
 		ConvertCurrencyClient: getConvertCurrencyClient(),
 	}
 }
 
-func getBeerBoxPriceService() service.GetBeerBoxPriceService {
-	return &service.GetBeerBoxPrice{}
+func getBeerBoxPriceService() beer.GetBeerBoxPriceService {
+	return &beer.GetBeerBoxPrice{}
 }

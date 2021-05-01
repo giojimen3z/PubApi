@@ -8,7 +8,7 @@ type BeerBoxDataBuilder struct {
 
 func NewBeerBoxDataBuilder() *BeerBoxDataBuilder {
 	return &BeerBoxDataBuilder{
-		price: 0.4161,
+		price: 2.4966,
 	}
 }
 

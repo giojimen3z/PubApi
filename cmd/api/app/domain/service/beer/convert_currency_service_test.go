@@ -1,11 +1,11 @@
-package service_test
+package beer_test
 
 import (
 	"errors"
 	"os"
 
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	"github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	. "github.com/onsi/ginkgo"
@@ -17,11 +17,11 @@ var _ = Describe("Service", func() {
 	Context("Convert Currency", func() {
 		var (
 			clientMock                *mock.CurrencyClientMock
-			getConvertCurrencyService service.ConvertCurrency
+			getConvertCurrencyService beer.ConvertCurrency
 		)
 		BeforeEach(func() {
 			clientMock = new(mock.CurrencyClientMock)
-			getConvertCurrencyService = service.ConvertCurrency{
+			getConvertCurrencyService = beer.ConvertCurrency{
 				ConvertCurrencyClient: clientMock,
 			}
 

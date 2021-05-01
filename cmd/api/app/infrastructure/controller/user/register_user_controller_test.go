@@ -1,4 +1,4 @@
-package beer_test
+package user
 
 import (
 	"encoding/json"
@@ -8,10 +8,9 @@ import (
 	"os"
 	"strings"
 
-	beerApplication "github.com/PubApi/cmd/api/app/application/beer"
+	userApplication "github.com/PubApi/cmd/api/app/application/user"
 	"github.com/PubApi/cmd/api/app/domain/model"
-	beerService "github.com/PubApi/cmd/api/app/domain/service/beer"
-	beerController "github.com/PubApi/cmd/api/app/infrastructure/controller/beer"
+	userService "github.com/PubApi/cmd/api/app/domain/service/user"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	"github.com/gin-gonic/gin"
@@ -19,29 +18,29 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Beer Controller", func() {
-	Context("Create Beer", func() {
+var _ = Describe("User Controller", func() {
+	Context("Register User", func() {
 		var (
-			beer                 model.Beer
-			beerCreateController beerController.CreateBeerController
-			context              *gin.Context
-			repositoryMock       *mock.BeerRepositoryMock
-			recorder             *httptest.ResponseRecorder
+			user                   model.User
+			registerUserController RegisterUserController
+			context                *gin.Context
+			repositoryMock         *mock.UserRepositoryMock
+			recorder               *httptest.ResponseRecorder
 		)
 		BeforeEach(func() {
 			_ = os.Setenv("SCOPE", "local")
-			beer = builder.NewBeerDataBuilder().Build()
+			user = builder.NewUserDataBuilder().Build()
 			recorder = httptest.NewRecorder()
 			context, _ = gin.CreateTestContext(recorder)
-			repositoryMock = new(mock.BeerRepositoryMock)
-			beerCreateService := &beerService.CreateBeer{
-				BeerRepository: repositoryMock,
+			repositoryMock = new(mock.UserRepositoryMock)
+			registerUserService := &userService.RegisterUser{
+				UserRepository: repositoryMock,
 			}
-			beerCreateUseCase := &beerApplication.CreateBeer{
-				CreateBeerService: beerCreateService,
+			registerUserUseCase := &userApplication.RegisterUser{
+				RegisterUserService: registerUserService,
 			}
-			beerCreateController = beerController.CreateBeerController{
-				CreateBeerApplication: beerCreateUseCase,
+			registerUserController = RegisterUserController{
+				RegisterUserApplication: registerUserUseCase,
 			}
 
 		})
@@ -51,12 +50,12 @@ var _ = Describe("Beer Controller", func() {
 		})
 		When("a new valid request is received", func() {
 			It("should return 201 code", func() {
-				body, _ := json.Marshal(beer)
+				body, _ := json.Marshal(user)
 				context.Request, _ = http.NewRequest("POST", "/testing", strings.NewReader(string(body)))
-				repositoryMock.On("Save", beer).Return(nil)
-				expectMessage := "\"the beer Golden was created successfully\""
+				repositoryMock.On("Save", user).Return(nil)
+				expectMessage := "\"the user Gio was created successfully\""
 
-				beerCreateController.MakeCreateBeer(context)
+				registerUserController.MakeRegisterUser(context)
 
 				Expect(http.StatusCreated).To(Equal(recorder.Code))
 				Expect(expectMessage).Should(Equal(recorder.Body.String()))
@@ -69,7 +68,7 @@ var _ = Describe("Beer Controller", func() {
 				context.Request, _ = http.NewRequest("POST", "/testing", strings.NewReader(string("")))
 				errorExpected := "{\"message\":\"invalid request\",\"error\":\"bad_request\",\"status\":400,\"cause\":[]}"
 
-				beerCreateController.MakeCreateBeer(context)
+				registerUserController.MakeRegisterUser(context)
 
 				Expect(http.StatusBadRequest).To(Equal(recorder.Code))
 				Expect(errorExpected).Should(Equal(recorder.Body.String()))
@@ -79,13 +78,14 @@ var _ = Describe("Beer Controller", func() {
 
 		When("a new valid request is received but with  invalid id", func() {
 			It("should return 409 code", func() {
-				body, _ := json.Marshal(beer)
+				body, _ := json.Marshal(user)
 				context.Request, _ = http.NewRequest("POST", "/testing", strings.NewReader(string(body)))
 				errorMock := errors.New("the id:1 is invalid")
-				repositoryMock.On("Save", beer).Return(errorMock)
-				errorExpected := "{\"message\":\"Beer id:1 already exists\",\"error\":\"Conflict\",\"status\":409,\"cause\":null}"
+				repositoryMock.On("Save", user).Return(errorMock)
+				errorExpected := "{\"message\":\"User id:1 already exists\",\"error\":\"Conflict\",\"status\":409,\"cause\":null}"
 
-				beerCreateController.MakeCreateBeer(context)
+				registerUserController.MakeRegisterUser(context)
+
 
 				Expect(http.StatusConflict).To(Equal(recorder.Code))
 				Expect(errorExpected).Should(Equal(recorder.Body.String()))

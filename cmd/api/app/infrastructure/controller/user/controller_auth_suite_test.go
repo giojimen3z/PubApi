@@ -1,4 +1,4 @@
-package application
+package user
 
 import (
 	"testing"
@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestApplication(t *testing.T) {
+func TestController(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Beer Handler")
+	RunSpecs(t, "User Controller")
 }

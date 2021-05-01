@@ -1,9 +1,9 @@
-package service_test
+package beer_test
 
 import (
 	"os"
 
-	"github.com/PubApi/cmd/api/app/domain/service"
+	"github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -16,10 +16,10 @@ const (
 var _ = Describe("Service", func() {
 	Context("Get Beer Box Price", func() {
 		var (
-			getBeerBoxPriceService service.GetBeerBoxPrice
+			getBeerBoxPriceService beer.GetBeerBoxPrice
 		)
 		BeforeEach(func() {
-			getBeerBoxPriceService = service.GetBeerBoxPrice{}
+			getBeerBoxPriceService = beer.GetBeerBoxPrice{}
 
 		})
 
@@ -46,7 +46,6 @@ var _ = Describe("Service", func() {
 
 				beerBox := getBeerBoxPriceService.GetBeerBoxPrice(int64(quantity), currencyConversion)
 
-				println("===============================>>>>>", beerBox.Price)
 				Expect(beerBoxExpected).Should(Equal(beerBox))
 			})
 		})

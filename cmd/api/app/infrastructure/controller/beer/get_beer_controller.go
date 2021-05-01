@@ -4,13 +4,13 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/PubApi/cmd/api/app/application"
+	"github.com/PubApi/cmd/api/app/application/beer"
 	"github.com/gin-gonic/gin"
 )
 
 // GetBeerController  used for inject the use case
 type GetBeerController struct {
-	GetBeerApplication application.GetBeerApplication
+	GetBeerApplication beer.GetBeerApplication
 }
 
 func (getBeerController *GetBeerController) MakeGetBeer(context *gin.Context) {

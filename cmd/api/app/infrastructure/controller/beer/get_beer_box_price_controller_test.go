@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/PubApi/cmd/api/app/application"
+	beer2 "github.com/PubApi/cmd/api/app/application/beer"
 	"github.com/PubApi/cmd/api/app/domain/model"
-	"github.com/PubApi/cmd/api/app/domain/service"
+	beer3 "github.com/PubApi/cmd/api/app/domain/service/beer"
 	beerController "github.com/PubApi/cmd/api/app/infrastructure/controller/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
@@ -41,14 +41,14 @@ var _ = Describe("Beer Controller", func() {
 			context, _ = gin.CreateTestContext(recorder)
 			repositoryMock = new(mock.BeerRepositoryMock)
 			clientMock = new(mock.CurrencyClientMock)
-			getBeerService := &service.GetBeer{
+			getBeerService := &beer3.GetBeer{
 				BeerRepository: repositoryMock,
 			}
-			convertCurrencyService := &service.ConvertCurrency{
+			convertCurrencyService := &beer3.ConvertCurrency{
 				ConvertCurrencyClient: clientMock,
 			}
-			getBeerBoxPrice := &service.GetBeerBoxPrice{}
-			getBeerBoxPriceUseCase := &application.GetBeerBoxPrice{
+			getBeerBoxPrice := &beer3.GetBeerBoxPrice{}
+			getBeerBoxPriceUseCase := &beer2.GetBeerBoxPrice{
 				GetBeerService:         getBeerService,
 				ConvertCurrencyService: convertCurrencyService,
 				GetBeerBoxPriceService: getBeerBoxPrice,

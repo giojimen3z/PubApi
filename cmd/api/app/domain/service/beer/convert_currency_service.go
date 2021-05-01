@@ -1,4 +1,4 @@
-package service
+package beer
 
 import (
 	"github.com/PubApi/cmd/api/app/domain/model"
