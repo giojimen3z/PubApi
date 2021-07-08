@@ -3,8 +3,8 @@ package beer_test
 import (
 	"errors"
 
-	"github.com/PubApi/cmd/api/app/application/beer"
-	beer2 "github.com/PubApi/cmd/api/app/domain/service/beer"
+	beerApplicaciotn "github.com/PubApi/cmd/api/app/application/beer"
+	beerService "github.com/PubApi/cmd/api/app/domain/service/beer"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	. "github.com/onsi/ginkgo"
@@ -15,14 +15,14 @@ var _ = Describe("Handler", func() {
 	Context("Create Beer", func() {
 		var (
 			repositoryMock    *mock.BeerRepositoryMock
-			beerCreateUseCase beer.CreateBeer
+			beerCreateUseCase beerApplicaciotn.CreateBeer
 		)
 		BeforeEach(func() {
 			repositoryMock = new(mock.BeerRepositoryMock)
-			beerCreateService := &beer2.CreateBeer{
+			beerCreateService := &beerService.CreateBeer{
 				BeerRepository: repositoryMock,
 			}
-			beerCreateUseCase = beer.CreateBeer{
+			beerCreateUseCase = beerApplicaciotn.CreateBeer{
 				CreateBeerService: beerCreateService,
 			}
 

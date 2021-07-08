@@ -1,4 +1,4 @@
-package user
+package user_test
 
 import (
 	"encoding/json"
@@ -11,6 +11,7 @@ import (
 	userApplication "github.com/PubApi/cmd/api/app/application/user"
 	"github.com/PubApi/cmd/api/app/domain/model"
 	userService "github.com/PubApi/cmd/api/app/domain/service/user"
+	userController "github.com/PubApi/cmd/api/app/infrastructure/controller/user"
 	"github.com/PubApi/cmd/api/test/builder"
 	"github.com/PubApi/cmd/api/test/mock"
 	"github.com/gin-gonic/gin"
@@ -22,7 +23,7 @@ var _ = Describe("User Controller", func() {
 	Context("Register User", func() {
 		var (
 			user                   model.User
-			registerUserController RegisterUserController
+			registerUserController userController.RegisterUserController
 			context                *gin.Context
 			repositoryMock         *mock.UserRepositoryMock
 			recorder               *httptest.ResponseRecorder
@@ -39,7 +40,7 @@ var _ = Describe("User Controller", func() {
 			registerUserUseCase := &userApplication.RegisterUser{
 				RegisterUserService: registerUserService,
 			}
-			registerUserController = RegisterUserController{
+			registerUserController = userController.RegisterUserController{
 				RegisterUserApplication: registerUserUseCase,
 			}
 
@@ -85,7 +86,6 @@ var _ = Describe("User Controller", func() {
 				errorExpected := "{\"message\":\"User id:1 already exists\",\"error\":\"Conflict\",\"status\":409,\"cause\":null}"
 
 				registerUserController.MakeRegisterUser(context)
-
 
 				Expect(http.StatusConflict).To(Equal(recorder.Code))
 				Expect(errorExpected).Should(Equal(recorder.Body.String()))

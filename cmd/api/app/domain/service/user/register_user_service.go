@@ -12,7 +12,7 @@ import (
 
 const (
 	errorIDExist          = "User id:%v already exists"
-	logErrorInvalidUserID = "User id:%v already exists  [Class: CreateBeerService][Method:CreateBeer]"
+	logErrorInvalidUserID = "User id:%v already exists  [Class: RegisterUserService][Method:RegisterUser]"
 )
 
 type RegisterUserService interface {
